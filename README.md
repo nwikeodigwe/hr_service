@@ -1,4 +1,5 @@
 # HR_SERVICE PLATFORM
+<<<<<<< HEAD
 
 # Description
 
@@ -100,3 +101,5 @@ role_id Int Foreign key Primary key
 permission_id Int Foreign key Primary key
 
 There are also other possible endpoints that could be added as well as features but for the sake of time and simplicity, I am limiting the scope of this project in the mean time
+=======
+>>>>>>> ecbe1c4a02df2cd818a26df9d80d467f16284283
