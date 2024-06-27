@@ -10,6 +10,7 @@ This application is designed to streamline the management of employees across di
 Endpoints                         Method            Parameters                                  Description
 /employees/                       GET               -                                           Retrieve all employees
 /employees/<id>                   GET               :id                                         Retrieve employee with id
+<<<<<<< HEAD
 /employees/<id>/role-permission    GET               :id                                         Retrieve permission for role of employee
 /employees/<id>/organizations      GET               :id                                         Retrieve organization an employee works for
 /employees/<id>/department        GET               :id                                         Retrieve department of employee with given id
@@ -18,23 +19,42 @@ Endpoints                         Method            Parameters                  
 /employees/<id>/timekeeping       GET               :id                                         Retrieve time keeping of employee with given id
 /employees/<id>/timekeeping       POST              :id                                         Retrieve time keeping of employee with given id
 /employees/                       POST              name, gender, organization_id, role_id      Create new employee
+=======
+/employees/<id>/role-pemission    GET               :id                                         Retrieve permission for role of employee
+/employees/<id>/org               GET               :id                                         Retrieve organization an employee works for
+/employees/<id>/dept              GET               :id                                         Retrieve department of employee with given id
+/employees/<id>/salary            GET               :id                                         Retrieve salary of employee
+/employees/<id>/timekeeping       GET               :id                                         Retrieve time keeping of employee with given id
+/employees/                       POST              name, gender, org_id, role_id               Create new employee
+>>>>>>> 23e54bc1dbfe25a099df2bdb0c5c0f44a5fd6778
 /employees/<id>                   PATCH|PUT         :id, name, organization_id, role_id         Update employee with id
 /organizations/                   GET               -                                           Retrieve all organizations
 /organizations/<id>               GET               :id                                         Retrieve organization with given id
 /organizations/<id>/salaries      GET               :id                                         Retrieve salaries for organization
+<<<<<<< HEAD
 /organizations/<id>/departments   GET               :id                                         Retrive all departments of an organization
 /organizations/<id>/departments   POST              :id, title, description                     Create new department in an organization
 /organizations/                   POST              title, description                          Create new organization
+=======
+/organizations/<id>/dept          GET               :id                                         Retrive all departments of an organization
+/organizations/                   POST              user_id,title,description                   Create new organization
+>>>>>>> 23e54bc1dbfe25a099df2bdb0c5c0f44a5fd6778
 /organizations/<id>               PATCH|PUT         :id, title| description |                   Update organization with given id
 /oranizations/<id>                DELETE            :id                                         Delete organization with given id
 /departments/                     GET                -                                          Retrieve all departments
 /departments/<id>                 GET               :id                                         Retrieve department with given id
+<<<<<<< HEAD
 /departments/<id>                 PATCH|PUT         :id,title, description, organization_id     Update department with id
 /departments/<id>                 DELETE            :id                                         Delete department with id
 /salaries/                        GET               -                                           Retrieve all  Salaries
 /salaries/<id>                    GET               :id                                         Retrieve salary with id
 /salaries/<id>                    DELETE            :id                                         delete salary with given id
 
+=======
+/departments/                     POST              title, description, organization_id         Create new department
+/departments/<id>                 PATCH|PUT         :id,title, description, organization_id     Update department with id
+/salaries/                        GET               -                                           Retrieve all  Salaries
+>>>>>>> 23e54bc1dbfe25a099df2bdb0c5c0f44a5fd6778
 
 
 
