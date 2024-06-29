@@ -10,7 +10,7 @@ def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
         SECRET_KEY='dev',
-        SQLALCHEMY_DATABASE_URI='postgresql://postgres@pg:5432/hrserviceplatform',
+        SQLALCHEMY_DATABASE_URI='postgresql://postgres@pg:5432/serviceplatform',
         SQLALCHEMY_TRACK_MODIFICATIONS=False,
         SQLALCHEMY_ECHO=True
     )
