@@ -1,1 +1,4 @@
 .venv/*
+app/.vscode/*
+app/migrations/*
+
