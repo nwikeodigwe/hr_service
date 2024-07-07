@@ -6,13 +6,11 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_HOST_AUTH_METHOD: trust
+      PGUSER: postgres
     ports:
       - "5432:5432"
     volumes:
-      - "./data/initdb/:/docker-entrypoint-initdb.d/"
-    networks:
-      - nunet
-
+      - "${PWD}/data/initdb/:/docker-entrypoint-initdb.d/"
   pgadmin:
     container_name: pgadmin_container
     image: dpage/pgadmin4:6.4
@@ -28,26 +26,15 @@ services:
       - "5433:5433"
     depends_on:
       - pg
-    networks:
-      - nunet
-
   flask-app:
     container_name: flask_container
     image: nupgsql/flask:latest
     ports:
-      - "5000:5000"
+      - 3000:3000
     depends_on:
       - pg
     volumes:
       - ./app:/app
-    environment:
-      FLASK_APP: app/app.py
-      FLASK_ENV: development
-      DATABASE_URL: postgresql://postgres@pg:5432/postgres
-      SQLALCHEMY_DATABASE_URI: postgresql://postgres@pg:5432/postgres
-    networks:
-      - nunet
-
 networks:
-  nunet:
-    driver: bridge
+    default:
+        name: nunet

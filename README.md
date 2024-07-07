@@ -7,10 +7,8 @@ Endpoints                         Method            Parameters                  
 /employees/                       GET               -                                           Retrieve all employees
 /employees/<id>                   GET               :id                                         Retrieve employee with id
 /employees/<id>/salaries          GET               :id                                         Retrieve salary of employee
-/employees/<id>/salaries          POST              :id, from_date, to_date                     Create salary for employee
 /employees/<id>/timekeeping       GET               :id                                         Retrieve time keeping of employee with given id
-/employees/<id>/timekeeping       POST              :id                                         Retrieve time keeping of employee with given id
-/employees/     
+/employees/<id>/timekeeping       POST              :id                                         Retrieve time keeping of employee with given id    
 /employees/<id>/role-pemission    GET               :id                                         Retrieve permission for role of employee
 /employees/<id>/org               GET               :id                                         Retrieve organization an employee works for
 /employees/<id>/dept              GET               :id                                         Retrieve department of employee with given id
@@ -99,4 +97,14 @@ created_at date
 Role_permissions
 role_id Int Foreign key Primary key
 permission_id Int Foreign key Primary key
+
 There are also other possible endpoints that could be added as well as features but for the sake of time and simplicity, I am limiting the scope of this project in the mean time
+
+# Week 1
+During the first week, I brainstomed on what i wanted the database struscture to be, what type of data to save and their respective data types. After that I proceeded to creating an ER diagram using Drawio. After deciding the various relationshit types as well as foriegn key constraints, I had a better scope of my project. After setting up my folder structure, I proceeded ti initializing a git repository for my project.
+
+# Week 2
+I proceeded to building out my project by first starting up a docker container using the docker compose file from the SQL week 1 example file. This was the first challenge I had with building out this project because even though my project worked fine when I tried running in the docker container from SQL week 1 lecture, I had trouble making it work in the new container. I realized that I may be getting the concept of creaing container with docker missed up. After serveral research and talking to my instructure as well as tweaking my docker sompose file, I finally got it to work and texted all my end point at the end of this week using Insonmia.
+
+# Week
+For week 3, I starting writing out tests in order to test the various end points as well as create and update functions for my database. It was a bit confusing expecially since I wasnt sure I could have a woking database connection that can be accessed through my gitbhub actions
