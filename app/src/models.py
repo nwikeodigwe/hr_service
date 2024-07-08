@@ -23,8 +23,8 @@ class Employee(db.Model):
     organization_id = db.Column(db.Integer, db.ForeignKey('organizations.id'))
     department_id = db.Column(db.Integer, db.ForeignKey('departments.id'))
     salary = db.relationship('Salary', backref='employee', cascade="all, delete")
-    created_at = db.Column(db.DateTime, default=datetime.datetime.now(datetime.UTC), nullable=False)
-    updated_at = db.Column(db.DateTime, default=datetime.datetime.now(datetime.UTC), onupdate=datetime.datetime.now(datetime.UTC), nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.datetime.now(datetime.timezone.utc), nullable=False)
+    updated_at = db.Column(db.DateTime, default=datetime.datetime.now(datetime.timezone.utc), onupdate=datetime.datetime.now(datetime.timezone.utc), nullable=False)
 
     def serialize(self):
         return {
@@ -46,8 +46,8 @@ class Organization(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     title = db.Column(db.String(128), nullable=False, default='Untitled')
     description = db.Column(db.String(280), nullable=False)
-    created_at = db.Column(db.DateTime, default=datetime.datetime.now(datetime.UTC), nullable=False)
-    updated_at = db.Column(db.DateTime, default=datetime.datetime.now(datetime.UTC), onupdate=datetime.datetime.now(datetime.UTC), nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.datetime.now(datetime.timezone.utc), nullable=False)
+    updated_at = db.Column(db.DateTime, default=datetime.datetime.now(datetime.timezone.utc), onupdate=datetime.datetime.now(datetime.timezone.utc), nullable=False)
     departments = db.relationship('Department', backref='organization', cascade="all, delete")
 
     def serialize(self):
@@ -64,7 +64,7 @@ class Department(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     title = db.Column(db.String(128), nullable=False, default='Untitled')
     description = db.Column(db.String(280), nullable=False)
-    created_at = db.Column(db.DateTime, default=datetime.datetime.now(datetime.UTC), nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.datetime.now(datetime.timezone.utc), nullable=False)
     organization_id = db.Column(db.Integer, db.ForeignKey('organizations.id'), nullable=False)
 
     def serialize(self):
@@ -84,7 +84,7 @@ class Salary(db.Model):
     amount = db.Column(db.Float(), nullable=False, default=0.0)
     from_date = db.Column(db.Date, nullable=False)
     to_date = db.Column(db.Date, nullable=False)
-    created_at = db.Column(db.DateTime, default=datetime.datetime.now(datetime.UTC), nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.datetime.now(datetime.timezone.utc), nullable=False)
 
     def serialize(self):
         return {
