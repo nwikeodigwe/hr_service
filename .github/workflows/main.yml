@@ -54,6 +54,7 @@ jobs:
 
       - name: Set up the application
         run: |
+          export FLASK_APP=wsgi.py
           flask db upgrade
 
       - name: Run all tests
