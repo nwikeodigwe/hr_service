@@ -31,7 +31,7 @@ jobs:
     env:
       DATABASE_URL: postgresql://postgres:postgres@localhost:5432/serviceplatform
       FLASK_ENV: testing
-      FLASK_APP: "app:create_app"  # Adjust this to match your application structure
+      FLASK_APP: app:create_app  # Adjust this to match your application structure
 
     steps:
       - uses: actions/checkout@v2
@@ -46,6 +46,7 @@ jobs:
           python -m pip install --upgrade pip
           cd app
           python -m pip install -r requirements.txt
+          cd ..
 
       - name: Wait for Postgres
         run: |
@@ -55,9 +56,9 @@ jobs:
           done
 
       - name: Set up the application
-        run: |
-          export FLASK_APP=wsgi.py
-          flask db upgrade
+        run: flask db upgrade
 
       - name: Run all tests
-        run: pytest -v
+        run: |
+          cd app
+          pytest -v
