@@ -1,54 +1,60 @@
 name: HR Service Platform Pipeline
 
-# Set up how the workflow is triggered
 on:
-
-  # Trigger the workflow on push or pull request events on the main branch
   push:
     branches:
       - main
   pull_request:
     branches:
       - main
-
-  # Allow triggering this workflow manually from the Actions tab
   workflow_dispatch:
 
-# Set up the job for this workflow
 jobs:
-  # This workflow contains a single job that we are calling "build-and-test"
   build-and-test:
-
-    # The runner environment to use
     runs-on: ubuntu-latest
 
-    # Steps mostly contain CLI commands (via "run") and actions (via "uses")
-    # Each step begins with a hyphen -
-    steps:       
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      # You can optionally provide a name before a step. This is an example of an unnamed step.
+    services:
+      postgres:
+        image: postgres:latest
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: serviceplatform
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/serviceplatform
+      FLASK_ENV: testing
+
+    steps:
       - uses: actions/checkout@v2
 
-      # Runs a single echo command using the runners shell
-      - run: echo Entering Flask CI/CD Pipeline!
-      
-      # Uses the action setup-python@v2, specifying version 3.9
-      # This installs Python 3.9 to the runner environment
       - name: Set up Python 3.9
         uses: actions/setup-python@v2
         with:
-          python-version: 3.9         
-      # Runs a set of commands to install dependencies in the runner environment
+          python-version: 3.9
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          cd app
           python -m pip install -r requirements.txt
-     
-      # Runs database migrations on the Django app
-      - name: Run migrations
-        run: flask db upgrade
-      
-      # Run all tests with verbose flag
+
+      - name: Wait for Postgres
+        run: |
+          until pg_isready -h localhost -p 5432 -U postgres; do
+            echo "Waiting for database..."
+            sleep 1
+          done
+
+      - name: Set up the application
+        run: |
+          flask db upgrade
+
       - name: Run all tests
         run: pytest -v
