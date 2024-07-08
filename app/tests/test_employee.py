@@ -13,9 +13,13 @@ from src.models import db
 def client():
     # Create and configure a new app instance for each test
     app = Flask(__name__)
+
+    secret_key = os.getenv('SECRET_KEY', 'dev')
+    database_uri = os.getenv('DATABASE_URL', 'postgresql://postgres:postgres@localhost:5432/serviceplatform')
+
     app.config.from_mapping(
-        SECRET_KEY='dev',
-        SQLALCHEMY_DATABASE_URI='postgresql://postgres@pg:5432/serviceplatform',  # Update as necessary
+        SECRET_KEY=secret_key,
+        SQLALCHEMY_DATABASE_URI=database_uri,  # Update as necessary
         SQLALCHEMY_TRACK_MODIFICATIONS=False,
     )
 
