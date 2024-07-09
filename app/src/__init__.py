@@ -1,5 +1,5 @@
 import os
-from flask import Flask # type: ignore
+from flask import Flask, abort, request # type: ignore
 from flask_migrate import Migrate # type: ignore
 
 def create_app(test_config=None):
@@ -7,13 +7,14 @@ def create_app(test_config=None):
 
      # Fetching environment variables
     secret_key = os.getenv('SECRET_KEY', 'dev')
-    database_uri = os.getenv('DATABASE_URL', 'postgresql://postgres:postgres@localhost:5432/serviceplatform')
+    database_uri = os.getenv('DATABASE_URL', 'postgresql://postgres:7HWcMF2rBeexRZ8@nucamp.clomgi2e0c5u.us-east-1.rds.amazonaws.com:5432/nucamp?sslmode=require')
 
     app.config.from_mapping(
         SECRET_KEY=secret_key,
         SQLALCHEMY_DATABASE_URI=database_uri,
         SQLALCHEMY_TRACK_MODIFICATIONS=False,
-        SQLALCHEMY_ECHO=True
+        SQLALCHEMY_ECHO=True,
+        ALLOWED_HOSTS=['localhost', '127.0.0.1', '0.0.0.0', 'ec2-100-27-151-243.compute-1.amazonaws.com']
     )
 
     if test_config is None:
@@ -33,6 +34,12 @@ def create_app(test_config=None):
 
     db.init_app(app)
     migrate = Migrate(app, db)
+
+    @app.before_request
+    def check_allowed_hosts():
+        host = request.host.split(':')[0]
+        if host not in app.config['ALLOWED_HOSTS']:
+            abort(403)
 
     
     from .api import employees, organizations, departments, salaries
