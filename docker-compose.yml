@@ -1,16 +1,4 @@
 services:
-  web:
-    build: ./app
-    image: 058264227400.dkr.ecr.us-east-1.amazonaws.com/flask_docker_aws
-    command: gunicorn app.wsgi:application --bind 0.0.0.0:8000
-    volumes:
-      - ./app/:/usr/src/app/
-      - static_volume:/usr/src/app/static
-    expose:
-      - 8000
-    networks:
-      - nunet
-
   pg:
     container_name: pg_container
     image: postgres:14.1-alpine3.15
@@ -58,6 +46,7 @@ services:
       DATABASE_URL: "postgresql://postgres:7HWcMF2rBeexRZ8@nucamp.clomgi2e0c5u.us-east-1.rds.amazonaws.com:5432/nucamp?sslmode=require"
     networks:
       - nunet
+    command: gunicorn app:app --bind 0.0.0.0:3000
 
 volumes:
   static_volume:
