@@ -106,5 +106,10 @@ During the first week, I brainstomed on what i wanted the database struscture to
 # Week 2
 I proceeded to building out my project by first starting up a docker container using the docker compose file from the SQL week 1 example file. This was the first challenge I had with building out this project because even though my project worked fine when I tried running in the docker container from SQL week 1 lecture, I had trouble making it work in the new container. I realized that I may be getting the concept of creaing container with docker missed up. After serveral research and talking to my instructure as well as tweaking my docker sompose file, I finally got it to work and texted all my end point at the end of this week using Insonmia.
 
-# Week
-For week 3, I starting writing out tests in order to test the various end points as well as create and update functions for my database. It was a bit confusing expecially since I wasnt sure I could have a woking database connection that can be accessed through my gitbhub actions
+# Week 3
+For week 3, I starting writing out tests in order to test the various end points as well as create and update functions for my database. It was a bit confusing expecially since I wasnt sure I could have a woking database connection that can be accessed through my gitbhub actions but it worked and wrote tests for my employees and organizations endpoints.
+
+# Week 4
+This was the most challenging week for this project as I kept confusing the steps to dockerizing and deploying flask application to aws. Initially I thought my security group setting was wrong but after making a changes to my docker compose yml.
+
+This has been an exciting journey for me because I wasn't sure how challenging and fun it would be at the same time.
