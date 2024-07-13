@@ -5,16 +5,12 @@ services:
     restart: always
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: nucamp
+      POSTGRES_HOST_AUTH_METHOD: trust
+      PGUSER: postgres
     ports:
       - "5432:5432"
     volumes:
       - "${PWD}/data/initdb/:/docker-entrypoint-initdb.d/"
-      - pgdata:/var/lib/postgresql/data
-    networks:
-      - nunet
-
   pgadmin:
     container_name: pgadmin_container
     image: dpage/pgadmin4:6.4
@@ -22,36 +18,23 @@ services:
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@example.com
       PGADMIN_DEFAULT_PASSWORD: admin123
-      PGADMIN_LISTEN_PORT: 80
+      PGADMIN_LISTEN_PORT: 5433
       PGADMIN_CONFIG_SERVER_MODE: "False"
       PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: "False"
       PGADMIN_CONFIG_UPGRADE_CHECK_ENABLED: "False"
     ports:
-      - "5433:80"
+      - "5433:5433"
     depends_on:
       - pg
-    networks:
-      - nunet
-
   flask-app:
     container_name: flask_container
-    image: nupgsql/flask:latest
+    build: .
     ports:
-      - 3000:3000
+      - "5000:5000"
     depends_on:
       - pg
     volumes:
-      - ./app:/app
-    environment:
-      DATABASE_URL: "postgresql://postgres:7HWcMF2rBeexRZ8@nucamp.clomgi2e0c5u.us-east-1.rds.amazonaws.com:5432/nucamp?sslmode=require"
-    networks:
-      - nunet
-    command: gunicorn app:app --bind 0.0.0.0:3000
-
-volumes:
-  static_volume:
-  pgdata:
-
+      - ./app:/usr/src/app
 networks:
-  nunet:
-    name: nunet
+    default:
+        name: nunet

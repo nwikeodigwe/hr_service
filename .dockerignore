@@ -1,0 +1,20 @@
+# Exclude virtual environment directory
+.venv/*
+app/.venv/*
+
+# Other unnecessary files or directories
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+env
+build
+dist
+.eggs
+*.egg-info
+*.egg
+.idea
+.vscode
+.DS_Store
+*.log
