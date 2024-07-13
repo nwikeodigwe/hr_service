@@ -3,8 +3,8 @@ import os
 import pytest # type: ignore
 from flask import Flask # type: ignore
 
-from src.api.organizations import bp
-from src.models import db
+from app.src.api.organizations import bp
+from app.src.models import db
 
 # Add the 'src' directory to the system path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../src')))

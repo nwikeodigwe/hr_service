@@ -7,7 +7,7 @@ def create_app(test_config=None):
 
      # Fetching environment variables
     secret_key = os.getenv('SECRET_KEY', 'dev')
-    database_uri = os.getenv('DATABASE_URL', 'postgresql://postgres:7HWcMF2rBeexRZ8@nucamp.clomgi2e0c5u.us-east-1.rds.amazonaws.com:5432/nucamp?sslmode=require')
+    database_uri = os.getenv('DATABASE_URL', 'postgresql://postgres:postgres@localhost:5432/serviceplatform')
 
     app.config.from_mapping(
         SECRET_KEY=secret_key,
